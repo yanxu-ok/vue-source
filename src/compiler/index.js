@@ -4,7 +4,7 @@
  * @Author: 闫旭
  * @Date: 2021-04-21 10:09:22
  * @LastEditors: sueRimn
- * @LastEditTime: 2021-04-22 11:40:10
+ * @LastEditTime: 2021-04-22 17:34:52
  */
 // 这里正则比较恶心
 // 字符串里的 反斜杠
@@ -19,16 +19,49 @@ const defaultTagRE = /\{\{((?:.|\r?\n)+?)\}\}/g; //{{aaaa}}
 // let r = "  />".match(startTagClose);
 // console.log(r);
 
+// 将解析后的结果组成树结构  相当于用栈实现的树   元素节点类型1, 文本节点3
+function createAstElement(tagName, attrs) {
+  return {
+    tag: tagName,
+    type: 1,
+    attr: attrs,
+    parent: null,
+    chilrden: [],
+  };
+}
+// 先判断有没有根节点 如果没有将第一个设为根
+let root; //根节点
+let stack = []; //栈
 function start(tagName, attributes) {
-  console.log("start", tagName, attributes);
+  // 获取当前栈中最后元素
+  const parent = stack[stack.length - 1];
+  const element = createAstElement(tagName, attributes);
+  if (!root) {
+    root = element;
+  }
+  // 当前元素的父亲是栈中最后元素
+  element.parent = parent;
+  // 栈中最后元素的孩子是当前元素, 一开始parent是underfined 所以需要判断一下
+  parent ? parent.chilrden.push(element) : null;
+  stack.push(element);
 }
 
 function end(tagName) {
-  console.log("end", tagName);
+  // 直接弹栈
+  stack.pop();
 }
 
 function chars(text) {
-  console.log("chars", text);
+  // 文本节点直接赋值在栈中最后元素的children中
+  text = text.replace(/\s/g, ""); // 这里的text有可能有空格先去掉
+  //   console.log("chars", text);
+  if (text) {
+    const end = stack[stack.length - 1];
+    end.chilrden.push({
+      type: 3,
+      text,
+    });
+  }
 }
 
 // 编译字符串得到
@@ -106,4 +139,5 @@ function parseHtml(html) {
 // 编译的类
 export function compilerToFunction(template) {
   parseHtml(template);
+  console.log(root);
 }
