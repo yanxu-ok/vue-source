@@ -4,7 +4,7 @@
  * @Author: 闫旭
  * @Date: 2021-04-21 10:09:22
  * @LastEditors: sueRimn
- * @LastEditTime: 2021-04-23 16:16:21
+ * @LastEditTime: 2021-04-25 11:22:58
  */
 
 // 这里正则比较恶心
@@ -12,7 +12,7 @@
 const cname = `[a-zA-Z_][\\-\\.0-9_a-zA-Z]*`; // 标签名
 const qnameCapture = `((?:${cname}\\:)?${cname})`; // 获取标签名
 const startTagOpen = new RegExp(`^<${qnameCapture}`); // 获取开始标签
-const endTag = new RegExp(`^</${qnameCapture}[^>]*>`); // <xxx    > 获取关闭标签
+const endTag = new RegExp(`^</${qnameCapture}[^>]*>`); // </xxx    > 获取关闭标签
 // 获取属性和值的
 const attribute = /^\s*([^\s"'<>\/=]+)(?:\s*(=)\s*(?:"([^"]*)")|(?:'([^']*)')|([^\s"'<>\/=`]+))?/; // aaa   =   "value" | 'value' | aaa
 const startTagClose = /^\s*(\/?)>/; // 匹配开始关闭标签     <div   />
@@ -139,3 +139,100 @@ export function parseHtml(html) {
   }
   return root;
 }
+
+// 练习 test
+// let stack = [];
+// let root;
+
+// function createElement(tag, attrs) {
+//   return {
+//     tag,
+//     attrs,
+//     type: 1,
+//     parent: null,
+//     chilrden: [],
+//   };
+// }
+
+// function start(tagName, attrs) {
+//   const parent = stack[stack.length - 1];
+//   const element = createElement(tagName, attrs);
+//   if (!root) {
+//     root = element;
+//   }
+//   element.parent = parent;
+//   parent ? parent.chilrden.push(element) : null;
+//   stack.push(element);
+// }
+
+// function end(tagName) {
+//   const end = stack[stack.length - 1];
+//   if (end.tag !== tagName) throw new Error("标签闭合错误");
+//   stack.pop();
+// }
+
+// function chars(text) {
+//   text = text.replace(/\s/g, "");
+//   if (text) {
+//     let end = stack[stack.length - 1];
+//     end.chilrden.push({
+//       type: 3,
+//       text,
+//     });
+//   }
+// }
+
+// export function parseHtml(html) {
+//   function advance(length) {
+//     html = html.substring(length);
+//   }
+
+//   function parseStartTag() {
+//     const startTag = html.match(startTagOpen);
+//     if (startTag) {
+//       let match = {
+//         tagName: startTag[1],
+//         attrs: [],
+//       };
+//       advance(startTag[0].length);
+//       let attr;
+//       while ((attr = html.match(attribute))) {
+//         match.attrs.push({
+//           key: attr[1],
+//           value: attr[3],
+//         });
+//         advance(attr[0].length);
+//       }
+//       const endTag = html.match(startTagClose);
+//       advance(endTag[0].length);
+//       return match;
+//     }
+//     return false;
+//   }
+
+//   while (html) {
+//     const startIndex = html.indexOf("<");
+//     if (startIndex === 0) {
+//       const startTagMatch = parseStartTag();
+//       if (startTagMatch) {
+//         start(startTagMatch.tagName, startTagMatch.attrs);
+//         continue;
+//       }
+//       const endMatch = html.match(endTag);
+//       if (endMatch) {
+//         end(endMatch[1]);
+//         advance(endMatch[0].length);
+//       }
+//       continue;
+//     }
+//     let text;
+//     if (startIndex > 0) {
+//       text = html.substring(0, startIndex);
+//       if (text) {
+//         chars(text);
+//         advance(text.length);
+//       }
+//     }
+//   }
+//   return root;
+// }

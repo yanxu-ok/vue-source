@@ -4,7 +4,7 @@
  * @Author: 闫旭
  * @Date: 2021-03-29 17:35:54
  * @LastEditors: sueRimn
- * @LastEditTime: 2021-04-23 16:51:50
+ * @LastEditTime: 2021-04-25 11:18:01
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -17,12 +17,11 @@
 
 <body>
   <div id="app" class="a" style="background: white;color: #000;">
-    123{{name}}world{{age}}
+    <a href="1">2<div>1</div></a>
+    <ul>
+      <li> 123{{name}}world{{age}}1</li>
+    </ul>
   </div>
-  <a href="1">2<div>1</div></a>
-  <ul>
-    <li>文本</li>
-  </ul>
 
   <script src="dist/vue.js"></script>
 
@@ -39,7 +38,17 @@
           },
           name: [2, 1]
         };
-      }
+      },
+      // render() {
+      //   _c('div', {
+      //     id: 'app',
+      //     class: 'a',
+      //     style: {
+      //       background: 'white',
+      //       color: '#000000'
+      //     }
+      //   }, _v('123 + _s({{name}}) + world + _s({{age}})'))
+      // }
     });
     // vm.$mount('#app')
   </script>

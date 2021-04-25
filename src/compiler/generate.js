@@ -4,7 +4,7 @@
  * @Author: 闫旭
  * @Date: 2021-04-23 14:18:46
  * @LastEditors: sueRimn
- * @LastEditTime: 2021-04-23 17:39:21
+ * @LastEditTime: 2021-04-25 11:23:16
  */
 //   <div id="app" class="a">
 //   <a href="1">2<div>1</div></a>
@@ -101,3 +101,64 @@ export function generate(el) {
   let str = `_c('${el.tag}',${genAttrs(el)}${chilrden ? "," + chilrden : ""})`; // 有孩子那就逗号和孩子一块显示，没有就不显示逗号
   return str;
 }
+
+// 练习
+// function getAttrs(el) {
+//   const attrs = el.attrs;
+//   if (attrs.length !== 0) {
+//     let str = "";
+//     attrs.forEach((attr) => {
+//       if (attr.key === "style") {
+//         let styleObj = {};
+//         attr.value.replace(style, function () {
+//           styleObj[arguments[1]] = arguments[2];
+//         });
+//         attr.value = styleObj;
+//       }
+//       str += `${attr.key}:${JSON.stringify(attr.value)},`;
+//     });
+//     return `{${str.slice(0, -1)}}`;
+//   }
+// }
+
+// function gen(el) {
+//   if (el.type === 1) {
+//     return generate(el);
+//   }
+//   if (el.type === 3) {
+//     const text = el.text;
+//     if (!defaultTagRE.test(text)) {
+//       return `_v('${text}')`;
+//     } else {
+//       // 123{{name}}world{{age}}
+//       let match;
+//       let tokens = [];
+//       let lastIndex = 0;
+//       defaultTagRE.lastIndex = 0;
+//       while ((match = defaultTagRE.exec(text))) {
+//         const index = match.index;
+//         if (index > lastIndex) {
+//           tokens.push(JSON.stringify(text.slice(lastIndex, index)));
+//         }
+//         tokens.push(`_s(${match[0].trim()})`);
+//         lastIndex = index + match[0].length;
+//       }
+//       if (lastIndex < text.length) {
+//         tokens.push(JSON.stringify(text.slice(lastIndex)));
+//       }
+//       return `_v(${tokens.join("+")})`;
+//     }
+//   }
+// }
+
+// function getChilrden(el) {
+//   if (el.chilrden.length != 0) {
+//     return el.chilrden.map((c) => gen(c)).join(",");
+//   }
+// }
+
+// export function generate(el) {
+//   let chilrden = getChilrden(el);
+//   let code = `_c('${el.tag}',${getAttrs(el)}${chilrden ? "," + chilrden : ""})`;
+//   return code;
+// }

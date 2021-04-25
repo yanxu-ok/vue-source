@@ -4,8 +4,9 @@ import { generate } from "./generate";
 // 编译的类
 export function compilerToFunction(template) {
   const root = parseHtml(template);
-  let render = generate(root);
-  console.log(render);
+  let renderStr = generate(root);
+  console.log(renderStr);
+  //   console.log(render);
   // html -> ast(只能描述语法，语法不存在的属性无法描述) -> render函数 ->虚拟dom(增加额外的属性)
 
   //   let word = "hello  {{name}} {{aa}} word";
