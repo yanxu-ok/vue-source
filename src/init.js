@@ -4,10 +4,11 @@
  * @Author: 闫旭
  * @Date: 2021-03-30 10:12:10
  * @LastEditors: sueRimn
- * @LastEditTime: 2021-04-21 10:15:59
+ * @LastEditTime: 2021-04-26 09:31:52
  */
 import { initState } from "./state";
 import { compilerToFunction } from "./compiler/index";
+import { mountComponent } from "./lifecycle";
 // Vue是构造函数
 export function initMixin(Vue) {
   Vue.prototype._init = function (options) {
@@ -27,6 +28,7 @@ export function initMixin(Vue) {
   Vue.prototype.$mount = function (el) {
     el = document.querySelector(el);
     const vm = this;
+    vm.$el = el; // 挂载this上,后面虚拟dom转换真实dom上会用到
     const options = vm.$options;
     // 处理模板编译成render函数
     if (!options.render) {
@@ -37,6 +39,8 @@ export function initMixin(Vue) {
         let render = compilerToFunction(template);
         options.render = render;
       }
+      // 挂载函数
+      mountComponent(vm, el);
     }
   };
 }

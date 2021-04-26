@@ -4,7 +4,7 @@
  * @Author: 闫旭
  * @Date: 2021-04-23 14:18:46
  * @LastEditors: sueRimn
- * @LastEditTime: 2021-04-25 11:23:16
+ * @LastEditTime: 2021-04-25 11:48:21
  */
 //   <div id="app" class="a">
 //   <a href="1">2<div>1</div></a>
@@ -73,7 +73,7 @@ function gen(el) {
         if (index > lastIndex) {
           tokens.push(JSON.stringify(text.slice(lastIndex, index)));
         }
-        tokens.push(`_s(${match[0].trim()})`);
+        tokens.push(`_s(${match[1].trim()})`);
         lastIndex = index + match[0].length;
       }
       //   匹配完之后的索引如果小于字符串的长度 说明后面还有内容直接push最后的内容就可
