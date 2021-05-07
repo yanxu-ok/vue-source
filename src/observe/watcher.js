@@ -29,13 +29,17 @@ class Watcher {
     popTarget();
   }
 
+  upData() {
+    this.exprFunc();
+  }
+
   // 添加dep
   addDep(dep) {
     // 判断是否包含相同的depid,不相同才添加
     if (!this.idSet.has(dep.id)) {
       this.idSet.add(dep.id);
       this.watchers.push(dep);
-      dep.deps.push(Dep.target);
+      dep.addWatcher(this);
     }
   }
 }

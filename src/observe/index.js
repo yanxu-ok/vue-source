@@ -4,7 +4,7 @@
  * @Author: 闫旭
  * @Date: 2021-03-30 14:28:56
  * @LastEditors: sueRimn
- * @LastEditTime: 2021-05-07 15:29:07
+ * @LastEditTime: 2021-05-07 19:41:13
  */
 import { isObject } from "../util";
 import { arrayMethods } from "./array";
@@ -53,9 +53,12 @@ function defineReactive(data, key, value) {
       return value;
     },
     set(newV) {
-      // 如果在赋新值的情况下如果是对象的话，对象当中的值也不会被检测，需要再次遍历
-      observe(newV);
-      value = newV;
+      if (newV !== value) {
+        // 如果在赋新值的情况下如果是对象的话，对象当中的值也不会被检测，需要再次遍历
+        observe(newV);
+        value = newV;
+        dep.notify();
+      }
     },
   });
 }

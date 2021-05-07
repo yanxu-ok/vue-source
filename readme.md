@@ -4,7 +4,7 @@
  * @Author: 闫旭
  * @Date: 2021-04-20 17:49:07
  * @LastEditors: sueRimn
- * @LastEditTime: 2021-05-06 17:54:39
+ * @LastEditTime: 2021-05-07 19:43:57
 -->
 ## 1.vue 监控对象的变化
 ## 2.vue 监控数组的变化，改写方法，并且如果是数组，需要对其中的对象进行遍历  并且新增方法如果是对象也需要监控。
@@ -17,6 +17,23 @@
 ## 响应式原理
   1. 以上只完成了dom编译，数据改变视图并没有刷新，此时用到了观察者模式，对数据进行观察，页面进行刷新，数据是被观察者，页面是观察者。
   2. 要理解watch，比如说vuex一个属性会在多个地方引用，这种情况说明一个属性会有多个watcher，所以需要一个依赖收集器dep来收集所有的watcher，每个属性都会添加一个dep，反过来，watcher会观测多个属性，render函数在执行时需要去vm上取值，所需要的属性都会被当前的watcher收集
+   // watcher 和 dep
+
+  // 我们将视图更新的方法封装成了一个watcher
+
+  // 视图渲染之前会将watcher挂到Dep.target上
+
+  // 在vue中页面渲染使用的属性需要进行依赖收集，收集属性的渲染watcher
+
+  // 一开始劫持属性时，要为每个属性添加一个dep属性，用于存储这个渲染watcher(同一个watcher对应多个dep)
+
+  // 每个属性可能对应多个视图(多个视图肯定是多个watcher) 一个属性要对应多个watcher
+
+  // dep.depend()=>通知dep存放watcher=> Dep.target.addDep() =>通知watcher存放dep
+  // 双向存储
+  
+  // 赋值时。dep.notify()将当前存放的watcher执行unpdata()方法进行更新视图
+
 
 ### vue 知识点
 1. Object.created() 创建一个对象,对象的__proto__为括号当中的参数

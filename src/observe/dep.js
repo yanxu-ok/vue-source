@@ -4,7 +4,7 @@
  * @Author: 闫旭
  * @Date: 2021-05-07 14:29:14
  * @LastEditors: sueRimn
- * @LastEditTime: 2021-05-07 15:19:27
+ * @LastEditTime: 2021-05-07 19:40:37
  */
 let id = 0;
 class Dep {
@@ -19,6 +19,15 @@ class Dep {
     if (Dep.target) {
       Dep.target.addDep(this);
     }
+  }
+  // 添加watcher方法
+  addWatcher(watcher) {
+    this.deps.push(watcher);
+  }
+
+  // 循环执行watcher当中的方法
+  notify() {
+    this.deps.forEach((watcher) => watcher.upData());
   }
 }
 
