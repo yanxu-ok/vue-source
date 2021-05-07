@@ -4,10 +4,11 @@
  * @Author: 闫旭
  * @Date: 2021-03-30 14:28:56
  * @LastEditors: sueRimn
- * @LastEditTime: 2021-04-20 16:08:27
+ * @LastEditTime: 2021-05-07 15:29:07
  */
 import { isObject } from "../util";
 import { arrayMethods } from "./array";
+import Dep from "./dep";
 class Observer {
   constructor(data) {
     // data.__ob__ = this;
@@ -43,8 +44,12 @@ class Observer {
 function defineReactive(data, key, value) {
   // 如果对象里面套对象在需要遍历
   observe(value);
+  // 每个属性在添加一个dep属性时都会有一个dep属性,只是后将dep实例缓存起来,所以后面会有id相等的情况, 取值的时候调用关联方法
+  let dep = new Dep();
   Object.defineProperty(data, key, {
     get() {
+      dep.depend();
+      console.log(dep);
       return value;
     },
     set(newV) {

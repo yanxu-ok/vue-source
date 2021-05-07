@@ -4,7 +4,7 @@
  * @Author: 闫旭
  * @Date: 2021-03-29 17:35:54
  * @LastEditors: sueRimn
- * @LastEditTime: 2021-04-25 14:18:40
+ * @LastEditTime: 2021-05-07 16:18:02
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +19,7 @@
   <div id="app" class="a" style="background: white;color: #000;">
     <a href="1">2<div>1</div></a>
     <ul>
-      <li> 123{{name}}world{{age}}1</li>
+      <li> 123{{name}}world{{age}}{{name}}</li>
     </ul>
   </div>
 
@@ -32,26 +32,13 @@
       data() {
         return {
           age: 18,
-          a: {
-            b: [1, {
-              name: 1
-            }, 3],
-          },
           name: [2, 1]
         };
       },
-      // render() {
-      //   _c('div', {
-      //     id: 'app',
-      //     class: 'a',
-      //     style: {
-      //       background: 'white',
-      //       color: '#000000'
-      //     }
-      //   }, _v('123 + _s({{name}}) + world + _s({{age}})'))
-      // }
     });
-    // vm.$mount('#app')
+    // setTimeout(() => {
+    //   vm._update(vm._render());
+    // }, 1000)
   </script>
 </body>
 

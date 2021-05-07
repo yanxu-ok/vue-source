@@ -4,7 +4,7 @@
  * @Author: 闫旭
  * @Date: 2021-04-25 16:47:08
  * @LastEditors: sueRimn
- * @LastEditTime: 2021-04-26 09:51:45
+ * @LastEditTime: 2021-05-07 15:51:06
  */
 export function patch(oldVnode, vnode) {
   if (oldVnode.nodeType === 1) {
@@ -17,15 +17,9 @@ export function patch(oldVnode, vnode) {
     parentEle.insertBefore(ele, oldVnode.nextSibling);
     parentEle.removeChild(oldVnode);
     // console.log(oldVnode);
+    return ele;
+    // 这个地方一定要返回创建的新元素
   }
-
-  // 练习
-  // if (oldVnode.nodeType === 1) {
-  //   const parent = oldVnode.parentNode;
-  //   const newEle = createEle(vnode);
-  //   parent.insertBefore(newEle, oldVnode);
-  //   parent.removeChild(oldVnode);
-  // }
 }
 
 // 创建真实dom
@@ -42,15 +36,4 @@ function createEle(vnode) {
     vnode.el = document.createTextNode(text);
   }
   return vnode.el;
-
-  // 练习
-  // if (vnode.tag) {
-  //   vnode.el = document.createElement(vnode.tag);
-  //   vnode.chilrden.forEach((child) => {
-  //     vnode.el.appendChild(createEle(child));
-  //   });
-  // } else {
-  //   vnode.el = document.createTextNode(vnode.text);
-  // }
-  // return vnode.el;
 }

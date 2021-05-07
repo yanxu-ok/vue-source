@@ -4,7 +4,7 @@
  * @Author: 闫旭
  * @Date: 2021-04-23 14:18:46
  * @LastEditors: sueRimn
- * @LastEditTime: 2021-04-25 11:48:21
+ * @LastEditTime: 2021-05-06 14:58:04
  */
 //   <div id="app" class="a">
 //   <a href="1">2<div>1</div></a>
@@ -63,7 +63,7 @@ function gen(el) {
       // 判断索引如果大于上次的索引将前面的内容用tokens push进去, 然后将匹配到的结果push进去
       // 然后将lastindex 置为 index + match[0].length
       //   123{{name}}world{{age}}
-      //   格式化成 _v(123+_s({{name}})+world+_s({{age}}))
+      //   格式化成 _v(123+_s(name)+world+_s(age))
       let tokens = [];
       let match; // 匹配结果
       let lastIndex = 0;
